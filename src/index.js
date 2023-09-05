@@ -59,7 +59,7 @@ export default SplitPolygonMode;
 // from https://gis.stackexchange.com/a/344277/145409
 function polygonCut(poly, line, idPrefix) {
   const THICK_LINE_UNITS = 'kilometers';
-  const THICK_LINE_WIDTH = 0.001;
+  const THICK_LINE_WIDTH = 0;
   var i, j, intersectPoints, forCut, forSelect;
   var thickLineString, thickLinePolygon, clipped;
   var polyCoords = [];
