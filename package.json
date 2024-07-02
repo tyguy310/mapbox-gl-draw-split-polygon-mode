@@ -38,8 +38,7 @@
     "@rollup/plugin-terser": "^0.1.0",
     "eslint": "8.26.0",
     "rollup": "^3.2.5",
-    "mapbox-gl-draw-select-mode": "^1.0.3",
-    "@mapbox/mapbox-gl-draw": "^1.4.3"
+    "mapbox-gl-draw-select-mode": "^1.0.3"
   },
   "peerDependencies": {
     "@mapbox/mapbox-gl-draw": "^1.4.3",

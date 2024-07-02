@@ -3,13 +3,10 @@ import {
   highlightPropertyName as _highlightPropertyName,
 } from "./constants";
 
-import MapboxDraw from "@mapbox/mapbox-gl-draw";
-const theme = MapboxDraw.lib.theme;
-
 const highlightPropertyName = `user_${_highlightPropertyName}`;
 
-const customDrawStyles =
-  theme
+const customDrawStyles = (defaultStyle) =>
+  defaultStyle
     .map((style) => {
       if (style.id.endsWith("inactive")) {
         return {
