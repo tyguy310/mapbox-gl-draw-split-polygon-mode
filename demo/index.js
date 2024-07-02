@@ -1,7 +1,6 @@
 import SelectFeatureMode, {
   drawStyles as selectFeatureDrawStyles,
 } from "mapbox-gl-draw-select-mode";
-import defaultDrawStyle from "https://unpkg.com/@mapbox/mapbox-gl-draw@1.3.0/src/lib/theme.js";
 
 import SplitPolygonMode, {
   drawStyles as splitPolygonDrawStyles,
@@ -125,7 +124,7 @@ draw = new MapboxDraw({
     ...SplitPolygonMode(SelectFeatureMode(MapboxDraw.modes)),
   },
   styles: [
-    ...splitPolygonDrawStyles(selectFeatureDrawStyles(defaultDrawStyle)),
+    ...splitPolygonDrawStyles(selectFeatureDrawStyles(MapboxDraw.lib.theme)),
   ],
   userProperties: true,
 });
