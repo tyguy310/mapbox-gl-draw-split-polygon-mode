@@ -29,7 +29,6 @@ or use CDN:
 ```js
 import mapboxGl from "mapbox-gl";
 import MapboxDraw from "@mapbox/mapbox-gl-draw";
-import defaultDrawStyle from "@mapbox/mapbox-gl-draw/src/lib/theme.js";
 
 import SplitPolygonMode, {
   drawStyles as splitPolygonDrawStyles,
@@ -47,7 +46,7 @@ draw = new MapboxDraw({
   modes: {
     ...SplitPolygonMode(MapboxDraw.modes),
   },
-  styles: [...splitPolygonDrawStyles(defaultDrawStyle)],
+  styles: [...splitPolygonDrawStyles(MapboxDraw.lib.theme)],
   userProperties: true,
 });
 

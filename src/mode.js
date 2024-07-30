@@ -1,7 +1,6 @@
 import polygonSplitter from "polygon-splitter";
 
-import { geojsonTypes, events } from "@mapbox/mapbox-gl-draw/src/constants";
-
+import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import lineIntersect from "@turf/line-intersect";
 import booleanDisjoint from "@turf/boolean-disjoint";
 import lineOffset from "@turf/line-offset";
@@ -43,8 +42,8 @@ SplitPolygonMode.onSetup = function (opt) {
       selectedFeatures
         .filter(
           (f) =>
-            f.type === geojsonTypes.POLYGON ||
-            f.type === geojsonTypes.MULTI_POLYGON
+            f.type === MapboxDraw.constants.geojsonTypes.POLYGON ||
+            f.type === MapboxDraw.constants.geojsonTypes.MULTI_POLYGON
         )
         .map((f) => f.toGeoJSON())
     );
@@ -128,7 +127,7 @@ SplitPolygonMode.toDisplayFeatures = function (state, geojson, display) {
 };
 
 SplitPolygonMode.fireUpdate = function (newF) {
-  this.map.fire(events.UPDATE, {
+  this.map.fire(MapboxDraw.constants.events.UPDATE, {
     action: modeName,
     features: newF,
   });
@@ -157,9 +156,9 @@ function polygonCutWithSpacing(poly, line, options) {
   if (
     typeof line_width === "undefined" ||
     typeof line_width_unit === "undefined" ||
-    (poly.type != geojsonTypes.POLYGON &&
-      poly.type != geojsonTypes.MULTI_POLYGON) ||
-    line.type != geojsonTypes.LINE_STRING
+    (poly.type != MapboxDraw.constants.geojsonTypes.POLYGON &&
+      poly.type != MapboxDraw.constants.geojsonTypes.MULTI_POLYGON) ||
+    line.type != MapboxDraw.constants.geojsonTypes.LINE_STRING
   ) {
     return retVal;
   }
