@@ -1,19 +1,18 @@
-import polygonSplitter from "polygon-splitter";
-
-import MapboxDraw from '@mapbox/mapbox-gl-draw';
-import lineIntersect from "@turf/line-intersect";
-import booleanDisjoint from "@turf/boolean-disjoint";
-import lineOffset from "@turf/line-offset";
-import lineToPolygon from "@turf/line-to-polygon";
-import difference from "@turf/difference";
-import { lineString } from "@turf/helpers";
-
 import {
+  defaultOptions,
+  highlightPropertyName,
   modeName,
   passingModeName,
-  highlightPropertyName,
-  defaultOptions,
-} from "./constants";
+} from './constants';
+
+import MapboxDraw from '@mapbox/mapbox-gl-draw';
+import booleanDisjoint from '@turf/boolean-disjoint';
+import difference from '@turf/difference';
+import lineIntersect from '@turf/line-intersect';
+import lineOffset from '@turf/line-offset';
+import { lineString } from '@turf/helpers';
+import lineToPolygon from '@turf/line-to-polygon';
+import polygonSplitter from 'polygon-splitter';
 
 const SplitPolygonMode = {};
 
@@ -34,18 +33,18 @@ SplitPolygonMode.onSetup = function (opt) {
   if (featureIds.length !== 0) {
     featuresToSplit.push.apply(
       featuresToSplit,
-      featureIds.map((id) => api.get(id))
+      featureIds.map(id => api.get(id))
     );
   } else if (selectedFeatures.length !== 0) {
     featuresToSplit.push.apply(
       featuresToSplit,
       selectedFeatures
         .filter(
-          (f) =>
+          f =>
             f.type === MapboxDraw.constants.geojsonTypes.POLYGON ||
             f.type === MapboxDraw.constants.geojsonTypes.MULTI_POLYGON
         )
-        .map((f) => f.toGeoJSON())
+        .map(f => f.toGeoJSON())
     );
   } else {
     return onSelectFeatureRequest();
@@ -75,9 +74,9 @@ SplitPolygonMode.drawAndSplit = function (state) {
 
   try {
     this.changeMode(passingModeName, {
-      onDraw: (cuttingLineString) => {
+      onDraw: cuttingLineString => {
         const newPolygons = [];
-        state.featuresToSplit.forEach((el) => {
+        state.featuresToSplit.forEach(el => {
           if (booleanDisjoint(el, cuttingLineString)) {
             console.info(`Line was outside of Polygon ${el.id}`);
             newPolygons.push(el);
@@ -110,14 +109,14 @@ SplitPolygonMode.drawAndSplit = function (state) {
       },
     });
   } catch (err) {
-    console.error("🚀 ~ file: mode.js ~ line 116 ~ err", err);
+    console.error('🚀 ~ file: mode.js ~ line 116 ~ err', err);
   }
 };
 
 SplitPolygonMode.highlighFeatures = function (state, shouldHighlight = true) {
   const color = shouldHighlight ? state.options.highlightColor : undefined;
 
-  state.featuresToSplit.forEach((f) => {
+  state.featuresToSplit.forEach(f => {
     state.api.setFeatureProperty(f.id, highlightPropertyName, color);
   });
 };
@@ -154,8 +153,8 @@ function polygonCutWithSpacing(poly, line, options) {
   let thickLineString, thickLinePolygon, clipped;
 
   if (
-    typeof line_width === "undefined" ||
-    typeof line_width_unit === "undefined" ||
+    typeof line_width === 'undefined' ||
+    typeof line_width_unit === 'undefined' ||
     (poly.type != MapboxDraw.constants.geojsonTypes.POLYGON &&
       poly.type != MapboxDraw.constants.geojsonTypes.MULTI_POLYGON) ||
     line.type != MapboxDraw.constants.geojsonTypes.LINE_STRING
