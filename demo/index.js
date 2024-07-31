@@ -6,7 +6,7 @@ import SelectFeatureMode, {
 import SplitPolygonMode, {
   Constants as splitPolygonConstants,
   drawStyles as splitPolygonDrawStyles,
-} from '..';
+} from '../src';
 
 const { MODE } = import.meta.env;
 
